@@ -177,33 +177,36 @@ bool LinkedList::deleteRear(T& OldNum) {
      * @return false: if the node was not deleted successfully because the position was out of range
     */
 bool LinkedList::deleteAt(int pos, T& val) {
-    if (pos < count + 1 || pos > count + 1) {
+    if (pos < 0 || pos > count + 1) 
         return false;
-    }
     else 
-        if (pos == 1 && front != NULL) {
-        Node* nodeToDelete = front;
-        front = front->next;
-        free(nodeToDelete);
-        return true;
-    } else {
-        Node* temp = front;
-        for (int i = 1; i < pos - 1; i++) {
-            if (temp != NULL) {
-                temp = temp->next;
-            }
-        }
-        
-        if (temp != NULL && temp->next != NULL) {
-            Node* nodeToDelete = temp->next;
-            temp->next = temp->next->next;
-            free(nodeToDelete);
+    { 
+        if (pos == 0 && front != NULL) {
+            deleteFront(val);
             return true;
         }
         else {
-            return false; 
+            Node* temp = front;
+            for (int i = 1; i < pos; i++) {
+                if (temp != NULL) {
+                    temp = temp->next;
+                }
+            }
+
+            if (temp != NULL && temp->next != NULL) {
+                Node* nodeToDelete = temp->next;
+                temp->next = temp->next->next;
+                delete nodeToDelete;
+   
+                return true;
+            }
+            else {
+                return false;
+            }
         }
+        count--;
     }
+    return true;
 }
     // check if the pos is valid first, then move the ptr to the rigth positon
     // consider the special case of deleting the first node and the last node
@@ -222,19 +225,23 @@ bool LinkedList::deleteAt(int pos, T& val) {
 bool LinkedList::insertAt(int pos, T val) {
     if (pos < 0 || pos > count)
         return false;
-    else if (pos == 0) 
+    else if (pos == 0)
         addFront(val);
-    else if (pos == count) 
+    else if (pos == count || pos == count + 1)
         addRear(val);
     else {
-        Node* temp = front; 
-        for (int i = count; count!= pos;count--) {
+        Node* temp = front;
+        for (int i = 0; i < pos - 1; i++)
             temp = temp->next;
-        }
-        Node* newNode = new Node(val); 
-        temp->next = newNode->next;
+
+        Node* newNode = new Node(val);
+        newNode->next = temp->next;
+        temp->next = newNode; 
         count++;
-    }
+        }
+    
+    
+    return true;
     // check if the pos is valid first, then move the ptr to the rigth positon
     // consider the special case of inserting the first node and the last node
 }
