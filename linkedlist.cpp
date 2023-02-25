@@ -220,11 +220,21 @@ bool LinkedList::deleteAt(int pos, T& val) {
      * @return false: if the value was not inserted because pos is out of the range.
      */
 bool LinkedList::insertAt(int pos, T val) {
-    if (pos > count + 1 || pos < 1) {
+    if (pos < 0 || pos > count)
         return false;
+    else if (pos == 0) 
+        addFront(val);
+    else if (pos == count) 
+        addRear(val);
+    else {
+        Node* temp = front; 
+        for (int i = count; count!= pos;count--) {
+            temp = temp->next;
+        }
+        Node* newNode = new Node(val); 
+        temp->next = newNode->next;
+        count++;
     }
-    else
-        return true; 
     // check if the pos is valid first, then move the ptr to the rigth positon
     // consider the special case of inserting the first node and the last node
 }
