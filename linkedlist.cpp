@@ -28,7 +28,7 @@ LinkedList::~LinkedList() {
     Node* ptr; 
     for (ptr = front; front; ptr = front) {
         front = front->next;
-        delete ptr;
+        free (ptr);
     }
 }
 
@@ -53,10 +53,9 @@ bool LinkedList::isEmpty() const {
  * @return int The number of nodes in the list
  */
 int LinkedList::length() const {
-    //TODO: Add code here
     Node* temp = front;
-    int num = count;
-    while (temp->next != nullptr) {
+    unsigned int num = count;
+    while (temp->next != NULL) {
         temp = temp->next; 
         num++; 
     }
@@ -137,7 +136,7 @@ bool LinkedList::deleteFront(T& OldNum) {
     Node* temp = front; 
     OldNum = temp->val; 
     front = front->next; 
-    delete temp;
+    free(temp);
     return OldNum;
     // consider if the list was empty and return false if the list is empty 
     // consider the special case of deleting the only node in the list
