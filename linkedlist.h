@@ -6,7 +6,7 @@
 #pragma once
 
 // =======================================================
-// Your name: ??? (TODO: Add your name)
+// Your name: Matthew Gomogda
 // Compiler:  g++ 
 // File type: headher file  linkedlist.h
 //=======================================================
@@ -81,16 +81,16 @@ public:
      */
     void displayAll();
 
-    //TODO: Add comments
+    // @brief adds new node to front of the linked list.
     void addFront(T val);
 
-    //TODO: Add comments
+    // @brief adds new node to rear of the linked list.
     void addRear(T val);
 
-    //TODO: Add comments
+    // @brief removes front node from the linked list.
     bool deleteFront(T &val);
 
-    //TODO: Add comments
+    // @brief removes rear node from the linked list. 
     bool deleteRear(T &val);
 
     /**

@@ -11,7 +11,7 @@
 //You must complete the TODO parts and then complete LinkedList.cpp. Delete "TODO" after you are done.
 
 // ====================================================
-//Your name: ??? (TODO: Add your name)
+//Your name: Matthew Gomogda
 //Complier:  g++
 //File type: linkedList.cpp implementation file
 //=====================================================
@@ -26,13 +26,10 @@ using namespace std;
  */
 LinkedList::~LinkedList() {
     Node* ptr; 
-
     for (ptr = front; front; ptr = front) {
         front = front->next;
         delete ptr;
     }
-    //TODO: Add code here. Make sure memory is released properly.
-
 }
 
 /**
@@ -47,9 +44,8 @@ bool LinkedList::isEmpty() const {
     {
         return false;
     }
-    // TODO: Add code here
 
- //   return count == 0;
+    return count == 0;
 }
 
 /**
@@ -94,7 +90,7 @@ void LinkedList::displayAll() {
     cout << toString() << endl;
 }
 
-//TODO: Add comments
+//@brief Adds node to rear of the linked list.
 void LinkedList::addRear(T val) {
     if (isEmpty()) {
         addFront(val);
@@ -114,22 +110,12 @@ void LinkedList::addRear(T val) {
 
             temp->next = newNode;
         }
-        /*Node* temp = new Node;
-        temp->val = val;
-        temp->next = rear;
-
-        front->next = temp;
-        rear = temp->next;
-        */
         count++;
-    }
-    // consider the two cases of whether the list was empty
+    }   // consider the two cases of whether the list was empty
 }
-
-//TODO: Add comments
+    //@brief Adds node to the front of the linked list.
 void LinkedList::addFront(T val) {
     Node* temp = new Node;
-    // TODO: Add code here
     if (isEmpty()) {
         front = new Node(val);
         rear = front->next;
@@ -137,46 +123,31 @@ void LinkedList::addFront(T val) {
     }
     else
     {
-       // Node* temp = new Node;
-
         temp->val = val;
         temp->next = front;
 
         front = temp;
         rear = temp->next;
         count++; 
-    }
-    
-    // consider the two cases of whether the list was empty
+    }// consider the two cases of whether the list was empty
 }
-
-//TODO: Add comments
+    //@brief deletes front node from the linked list. 
+    //@return int the value removed from the list. 
 bool LinkedList::deleteFront(T& OldNum) {
     Node* temp = front; 
+    OldNum = temp->val; 
     front = front->next; 
-    delete temp; 
-    return front;
-    /*
-    // TODO: Add code here
-    Node* ptr = front;
-    if (ptr == NULL)
-    {
-        return false;
-    }
-    Node* temp = ptr; 
-    ptr = ptr->next; 
-
-    delete temp; 
-    return ptr; 
-    */
-    // consider if the list was empty and return false if the list is empty
+    delete temp;
+    return OldNum;
+    // consider if the list was empty and return false if the list is empty 
     // consider the special case of deleting the only node in the list
 }
 
-//TODO: Add comments
+    //@brief deletes rear node value from the linked list.
 bool LinkedList::deleteRear(T& OldNum) {
     if (front != NULL) {
         if (front->next == NULL) {
+            OldNum = front->val;
             front = NULL;
         }
         else {
@@ -185,33 +156,15 @@ bool LinkedList::deleteRear(T& OldNum) {
                 temp = temp->next;
 
             Node* lastNode = temp->next;
+            OldNum = lastNode->val;
             temp->next = NULL;
             free(lastNode);
+          
         }
     }
-    // TODO: Add code here
-    /*
-    Node* ptr = front;
-    if (ptr == NULL) {
-        return false;
-    }
-    if (ptr->next == NULL) {
-        delete front; 
-        return NULL;
-    }
-    Node* second_last = front;
-    while (second_last->next->next != NULL)
-        second_last = second_last->next;
-
-    delete (second_last->next);
-
-    second_last->next = NULL;
-    return front;
-    */
-
-    // consider if the list was empty and return false if the list is empty
-    // consider the special case of deleting the only node in the list
-}
+    return OldNum;
+    // consider if the list was empty and return false if the list is empty. 
+} // consider the special case of deleting the only node in the list.
 
 /* --- harder ones for test 2 and 3 -- */
 
@@ -225,7 +178,6 @@ bool LinkedList::deleteRear(T& OldNum) {
      * @return false: if the node was not deleted successfully because the position was out of range
     */
 bool LinkedList::deleteAt(int pos, T& val) {
-    //TODO: Add code here
     if (pos < count + 1 || pos > count + 1) {
         return false;
     }
@@ -274,11 +226,9 @@ bool LinkedList::insertAt(int pos, T val) {
     }
     else
         return true; 
-    //TODO: Add code here
     // check if the pos is valid first, then move the ptr to the rigth positon
     // consider the special case of inserting the first node and the last node
 }
-
 /**
  * @brief Copy Constructor to allow pass by value and return by value of a LinkedList
  * @param other LinkedList to be copied
@@ -288,14 +238,13 @@ LinkedList::LinkedList(const LinkedList& other) {
     front = nullptr;
     rear = nullptr;
     count = 0;
-    // TODO: Add code here. Interate through the other list and add a new node to this list
     // for each node in the other list. The new node should have the same value as the other node.
     Node* ptr = other.front;
     while (ptr != nullptr) {
         addRear(ptr->val);
         ptr = ptr->next;
     }
-}
+} // for each node in the other list. The new node should have the same value as the other node.
 
 /**
  * @brief Overloading of = (returns a reference to a LinkedList)
@@ -314,17 +263,14 @@ LinkedList& LinkedList::operator=(const LinkedList& other) {
         front = nullptr;
         rear = nullptr;
         count = 0;
-        // TODO: Add code here
-        // Interate through the other list and add a new node to this list
-        // Be sure to set the front and rear pointers to the correct values
-        // Be sure to set the count to the correct value
+     
         Node* ptr = other.front;
         while (ptr != nullptr) {
             addRear(ptr->val);
             ptr = ptr->next;
         }
-        // TODO: Add code here
-    }
+    }// Interate through the other list and add a new node to this list.
+    //Be sure to set the front and rear pointers to the correct values.
+    //Be sure to set the count to the correct value
     return *this;
-}
-
+}  
